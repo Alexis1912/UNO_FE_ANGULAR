@@ -1,0 +1,70 @@
+:host {
+  
+  
+  .sidebar {
+    width: 280px;
+    background-color: var(--card);
+    border-right: 1px solid var(--border);
+    z-index: 1000;
+  }
+  
+  .sidebar-header {
+    border-color: var(--border) !important;
+  }
+  
+  .logo-icon-wrapper {
+    width: 40px;
+    height: 40px;
+    background-color: var(--sidebar-primary);
+  }
+  
+  .logo-icon-wrapper svg {
+    fill: var(--primary-foreground);
+  }
+  
+  .nav-link {
+    color: var(--foreground);
+    transition: all 0.2s ease;
+  }
+  
+  .nav-link:hover {
+    background-color: var(--muted);
+    color: var(--primary);
+  }
+  
+  .nav-link.sidebar-active {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-weight: 500;
+  }
+  
+  .nav-link.sidebar-active svg {
+    fill: var(--primary-foreground);
+  }
+  
+  .sidebar-divider {
+    border-color: var(--sidebar-border) !important;
+  }
+  
+  .user-avatar-wrapper {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(var(--bs-secondary-rgb), 0.1);
+  }
+  
+  .user-avatar-wrapper svg {
+    fill: var(--secondary);
+  }
+  
+  .user-email {
+    font-size: 0.75rem;
+  }
+  
+  .logout-btn {
+    --bs-btn-color: var(--destructive);
+    --bs-btn-border-color: var(--destructive);
+    --bs-btn-hover-bg: var(--destructive);
+    --bs-btn-hover-color: var(--destructive-foreground);
+    border-radius: 0.5rem;
+  }
+ }
