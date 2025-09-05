@@ -1,0 +1,50 @@
+:host {
+    --input-bg: #f8f9fa;
+    --border-color: #dee2e6;
+    --destructive-color: #dc3545;
+    --success-color: #198754;
+  }
+  
+  .form-header h1 {
+    color: #212529;
+  }
+  
+  .form-control,
+  .form-select {
+    background-color: var(--input-bg);
+    border-color: var(--border-color);
+    border-radius: 0.5rem;
+  }
+  
+  .card {
+    border-radius: 1rem;
+    border: 0;
+  }
+  
+  /* Preview Card */
+  .preview-avatar {
+    width: 80px;
+    height: 80px;
+    background-color: rgba(var(--bs-primary-rgb), 0.1);
+    color: var(--bs-primary);
+  }
+  
+  .status-badge-active {
+    color: var(--success-color);
+    background-color: rgba(var(--bs-success-rgb), 0.1);
+  }
+  
+  .status-badge-inactive {
+    color: var(--destructive-color);
+    background-color: rgba(var(--bs-danger-rgb), 0.1);
+  }
+  
+  /* Action Buttons */
+  .btn-submit,
+  .btn-cancel,
+  .btn-reset {
+    border-radius: 0.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+

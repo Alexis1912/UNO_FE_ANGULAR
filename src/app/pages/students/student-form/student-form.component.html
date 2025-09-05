@@ -1,0 +1,175 @@
+<div class="container-fluid p-0">
+    <!-- Header -->
+    <div class="row mb-4">
+      <div class="col">
+        <div class="d-flex align-items-center form-header">
+          <button routerLink="/students" class="btn btn-outline-secondary me-3" style="border-radius: 0.5rem;">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" />
+            </svg>
+          </button>
+          <div>
+            <h1 class="h2 fw-bold mb-1">
+              {{ isEditMode ? 'Editar Estudiante' : 'Nuevo Estudiante' }}
+            </h1>
+            <p class="text-muted mb-0">
+              {{ isEditMode ? 'Actualiza la información del estudiante' : 'Completa el formulario para registrar un nuevo estudiante' }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-lg-8">
+        <!-- Main Form -->
+        <div class="card shadow-sm mb-4">
+          <div class="card-header bg-transparent border-0 p-4">
+            <h5 class="fw-bold mb-1">Información Personal</h5>
+            <p class="text-muted mb-0 small">Datos básicos del estudiante</p>
+          </div>
+          <div class="card-body p-4">
+            <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+              <div class="row g-4">
+                <div class="col-md-6">
+                  <label for="first_name" class="form-label fw-medium">Nombre(s) *</label>
+                  <input type="text" class="form-control" id="first_name" formControlName="first_name" placeholder="Ingresa el nombre">
+                  <div *ngIf="studentForm.get('first_name')?.invalid && studentForm.get('first_name')?.touched" class="text-danger small mt-1">
+                    El nombre es requerido.
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <label for="last_name" class="form-label fw-medium">Apellido(s) *</label>
+                  <input type="text" class="form-control" id="last_name" formControlName="last_name" placeholder="Ingresa el apellido">
+                  <div *ngIf="studentForm.get('last_name')?.invalid && studentForm.get('last_name')?.touched" class="text-danger small mt-1">
+                    El apellido es requerido.
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <label for="birth_date" class="form-label fw-medium">Fecha de Nacimiento *</label>
+                  <input type="date" class="form-control" id="birth_date" formControlName="birth_date">
+                  <div *ngIf="studentForm.get('birth_date')?.invalid && studentForm.get('birth_date')?.touched" class="text-danger small mt-1">
+                    La fecha de nacimiento es requerida.
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <label for="email" class="form-label fw-medium">Email *</label>
+                  <input type="email" class="form-control" id="email" formControlName="email" placeholder="estudiante@email.com">
+                  <div *ngIf="studentForm.get('email')?.invalid && studentForm.get('email')?.touched" class="text-danger small mt-1">
+                    <span *ngIf="studentForm.get('email')?.errors?.['required']">El email es requerido.</span>
+                    <span *ngIf="studentForm.get('email')?.errors?.['email']">El formato del email no es válido.</span>
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <label for="phone" class="form-label fw-medium">Teléfono</label>
+                  <input type="tel" class="form-control" id="phone" formControlName="phone" placeholder="+57 300 123 4567">
+                </div>
+  
+                <div class="col-md-6">
+                  <label for="course" class="form-label fw-medium">Curso/Carrera *</label>
+                  <select class="form-select" id="course" formControlName="course">
+                    <option value="" disabled>Selecciona una carrera</option>
+                    <option value="Ingeniería de Software">Ingeniería de Software</option>
+                    <option value="Diseño Gráfico">Diseño Gráfico</option>
+                    <option value="Ciencia de Datos">Ciencia de Datos</option>
+                  </select>
+                  <div *ngIf="studentForm.get('course')?.invalid && studentForm.get('course')?.touched" class="text-danger small mt-1">
+                    La carrera es requerida.
+                  </div>
+                </div>
+  
+                <div class="col-12">
+                  <label for="address" class="form-label fw-medium">Dirección</label>
+                  <textarea class="form-control" id="address" formControlName="address" rows="3" placeholder="Ingresa la dirección completa"></textarea>
+                </div>
+  
+                <div class="col-md-6">
+                  <label for="status" class="form-label fw-medium">Estado *</label>
+                  <select class="form-select" id="status" formControlName="status">
+                    <option value="Activo">Activo</option>
+                    <option value="Inactivo">Inactivo</option>
+                  </select>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-lg-4">
+        <!-- Preview Card -->
+        <div class="card shadow-sm mb-4 preview-card">
+          <div class="card-header bg-transparent border-0 p-4">
+            <h5 class="fw-bold mb-1">Vista Previa</h5>
+            <p class="text-muted mb-0 small">Cómo se verá la información</p>
+          </div>
+          <div class="card-body p-4">
+            <div class="text-center mb-4">
+              <div class="rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center preview-avatar">
+                <span class="h3 mb-0">
+                  {{ getInitials() }}
+                </span>
+              </div>
+              <h6 class="fw-bold mb-1">{{ getFullName() || 'Nombre del Estudiante' }}</h6>
+              <p class="text-muted small mb-0">{{ studentForm.get('course')?.value || 'Carrera' }}</p>
+            </div>
+  
+            <div class="border-top pt-3">
+              <div class="row g-2 small">
+                <div class="col-12 d-flex justify-content-between">
+                  <span class="text-muted">Email:</span>
+                  <span class="fw-medium text-truncate">{{ studentForm.get('email')?.value || '-' }}</span>
+                </div>
+                <div class="col-12 d-flex justify-content-between">
+                  <span class="text-muted">Teléfono:</span>
+                  <span class="fw-medium">{{ studentForm.get('phone')?.value || '-' }}</span>
+                </div>
+                <div class="col-12 d-flex justify-content-between">
+                  <span class="text-muted">Estado:</span>
+                  <span class="badge rounded-pill" [class.status-badge-active]="studentForm.get('status')?.value === 'Activo'" [class.status-badge-inactive]="studentForm.get('status')?.value !== 'Activo'">
+                    {{ studentForm.get('status')?.value || 'Activo' }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Action Buttons -->
+        <div class="card border-0 shadow-sm action-buttons">
+          <div class="card-body p-4">
+            <div class="d-grid gap-3">
+              <button type="submit" (click)="onSubmit()" class="btn btn-primary py-2 fw-medium btn-submit" [disabled]="studentForm.invalid || isLoading">
+                <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
+                {{ isLoading ? 'Guardando...' : (isEditMode ? 'Actualizar Estudiante' : 'Crear Estudiante') }}
+              </button>
+              <button type="button" routerLink="/students" class="btn btn-outline-secondary py-2 fw-medium btn-cancel">
+                Cancelar
+              </button>
+              <button type="button" (click)="resetForm()" class="btn btn-outline-danger py-2 btn-reset">
+                <svg width="16" height="16" fill="currentColor" class="me-2" viewBox="0 0 24 24">
+                  <path d="M12,6V9L16,5L12,1V4A8,8 0 0,0 4,12C4,13.57 4.46,15.03 5.24,16.26L6.7,14.8C6.25,13.97 6,13 6,12A6,6 0 0,1 12,6M18.76,7.74L17.3,9.2C17.74,10.04 18,11 18,12A6,6 0 0,1 12,18V15L8,19L12,23V20A8,8 0 0,0 20,12C20,10.43 19.54,8.97 18.76,7.74Z" />
+                </svg>
+                Limpiar Formulario
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Success/Error Messages -->
+    <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show mt-4" role="alert">
+      {{ successMessage }}
+      <button type="button" class="btn-close" (click)="successMessage = ''"></button>
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show mt-4" role="alert">
+      {{ errorMessage }}
+      <button type="button" class="btn-close" (click)="errorMessage = ''"></button>
+    </div>
+  </div>
+  
